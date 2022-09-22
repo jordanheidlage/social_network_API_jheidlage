@@ -1,5 +1,11 @@
 const { Schema, model, Types } = require('mongoose');
 // const moment = require('moment');
+const reactionSchema = new mongoose.Schema({
+
+})
+
+
+
 
 const thoughtSchema = new Schema({
     thoughtText: {
@@ -17,12 +23,14 @@ const thoughtSchema = new Schema({
         type: String,
         required: true
     },
-    reactions: {
-
-    },
+reactions: [reactionSchema]
 },
 {
     timestamps: true,
     toJSON: {getters: true, virtuals: true }
 }
 );
+
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought
