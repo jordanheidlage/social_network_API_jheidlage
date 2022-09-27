@@ -53,7 +53,7 @@ module.exports = {
             .then(() => res.json({ message: 'User and Thoughts deleted!' }))
             .catch((err) => res.status(500).json(err));
     },
-    // post to create a reaction stored in a single thoughts reactions array
+    // post to create a reaction stored in a single thoughts reactions array - this method is unique in that we add the entire body of the reaction rather than the id with the mongodb $addToSet operator
     createReaction(req, res) {
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
@@ -67,8 +67,17 @@ module.exports = {
             )
             .catch((err)=> res.status(500).json(err));
     },
-    // delete to pull and remove a reaction by the reactions reactionId
+    // delete to pull and remove a reaction by the reactions reactionId - then updates the reaction array associated with the thought in question by removing its reactionId from the reaction array
     deleteReaction(req, res) {
-
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            { $pull: { thoughts: { thoughtId: req.params.thoughtId}}},
+            {runValidators: true, new: true}
+        )
+            .then((thought) => 
+            !thought? res.status(404).json({ message: 'No reaction with this Id!'})
+            : res.json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
     },
-}
+};
