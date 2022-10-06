@@ -26,11 +26,10 @@ module.exports = {
     },
     // update a user
     updateUser(req, res) {
-        console.log('You are updating a student');
-        console.log(req.body);
+ 
         User.findOneAndUpdate(
-            { _id: req.params.studentId },
-            { $addToSet: { assignments: req.body } },
+            { _id: req.params.userId },
+            { $set: req.body  },
             { runValidators: true, new: true }
         )
             .then((user) =>
@@ -44,24 +43,23 @@ module.exports = {
     },
     // delete a user
     deleteUser(req, res) {
-        User.findOneandDelete({ _id: req.params.userId })
+        User.findOneAndDelete({ _id: req.params.userId })
             .then((user) =>
                 !user
                     ? res.status(404).json({ message: 'No user with that ID' })
-                    : Thought.deleteMany({ _id: { $in: user.thoughts } })
+                    : res.json({ message: 'User  deleted!' })
             )
-            .then(() => res.json({ message: 'No user with that ID' })
-            )
-            .then(() => res.json({ message: 'User and associated thoughts deleted!' }))
+            // .then(() => res.json({ message: 'No user with that ID' })
+            // )
+            // .then(() => res.json({ message: 'User and associated thoughts deleted!' }))
             .catch((err) => res.status(500).json(err));
     },
     // add a friend
     addFriend(req, res) {
-        console.log('You are adding a friend');
-        console.log(req.body);
+  
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $addToSet: { friends: req.body } },
+            { $addToSet: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
             .then((user) =>
@@ -78,11 +76,12 @@ module.exports = {
         console.log('You are deleting a friend');
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friend: { friendId: req.params.friendId } } },
+            { $pull: { friends: req.params.friendId  } },
             { runValidators: true, new: true }
         )
-            .then((student) =>
-                !student
+            .then((user) =>
+                !user
+
                     ? res.status(404)
                         .json({ message: 'No user fond with that ID' })
                     : res.json(user)
