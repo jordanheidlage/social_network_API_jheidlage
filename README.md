@@ -13,7 +13,7 @@ This program taught us how to use Mongo DB database and solidified our knowledge
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
-- [How to Contribute](#how-to-contribute)
+- [Contributions](#how-to-contribute)
 - [Tests](#tests)
 - [Questions](#questions)
 
@@ -34,7 +34,7 @@ Preview of the route capabilities:
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
     
-## How to Contribute
+## Contributions
 
 Instructional staff of The Ohio State University, and myself.
 
