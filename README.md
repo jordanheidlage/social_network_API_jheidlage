@@ -1,6 +1,6 @@
 # SOCIAL_NETWORK_API_JTH
 
-## Video Demonstartion
+## Video Demonstration
 
 https://drive.google.com/file/d/1UaWeDR4srUhVB8_5MJwDURKwLGEqeQtO/view
 
